@@ -1,7 +1,7 @@
 import Vue from 'vue'
 import * as VueGoogleMaps from 'vue2-google-maps'
 import App from './App.vue'
-import {store} from './store/store'
+import store from './store/store'
 //const fb = require('./firebaseConfig.js')
 
 

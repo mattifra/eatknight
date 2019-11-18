@@ -33,7 +33,7 @@
 
 import {gmapApi} from 'vue2-google-maps'
 import HelloWorld from './HelloWorld'
-import { mapState } from 'vuex';
+import {mapGetters} from 'vuex';
 
 
 export default {
@@ -43,7 +43,6 @@ export default {
   },
   data() {
     return {
-      center: { lat: 45.508, lng: -73.587 },
       markers: [],
       places: [],
     };
@@ -51,9 +50,10 @@ export default {
 
   computed: {
     google: gmapApi,
-    ...mapState({
-      place: state => state.place
-    })
+    ...mapGetters({
+      center: 'center',
+      place: 'place'
+    }),
   },
 
   mounted() {
@@ -64,32 +64,26 @@ export default {
   methods: {
     // receives a place object via the autocomplete component
     setPlace(place) {
-      this.$store.commit('setPlace', place)
-      this.currentPlace = this.place;
-      console.log(this.place)
-      console.log(this.place.geometry.location.lat(), this.place.geometry.location.lng())
+      this.$store.dispatch('setPlace', place);
     },
  
-    geolocate: function() {
+    geolocate() {
       navigator.geolocation.getCurrentPosition(position => {
-        this.center = {
-          lat: position.coords.latitude,
-          lng: position.coords.longitude
-        };
+        this.$store.dispatch('setCenter', {lat: position.coords.latitude, lng: position.coords.longitude});
         this.getNearbyPlaces(this.center);
       });
     },
 
 
     getNearbyPlacesFromSearch() {
-      this.getNearbyPlaces(this.place.geometry.location);
+      this.getNearbyPlaces();
     },
     
 
-    getNearbyPlaces(pos) {
+    getNearbyPlaces() {
       
       let service, marker, request = {
-        location: pos,
+        location: this.center,
         radius: 1000,
         keyword: 'sushi'
       };

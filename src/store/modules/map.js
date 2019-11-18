@@ -1,7 +1,7 @@
 const state = {
   center: { lat: 43.616943, lng: 13.516667 },
-  place: ''
-
+  place: '',
+  bounds: {}
 }
 
 const mutations = {
@@ -10,10 +10,16 @@ const mutations = {
       lat: lat,
       lng: lng
     };
+    console.log('Center changed')
   },
   'SET_PLACE'(state, place) {
     state.place = place
- }
+    console.log('Place changed')
+  },
+  'SET_BOUNDS'(state, bounds) {
+    state.bounds = bounds
+    console.log('bounds changed')
+  }
 };
 
 const actions = {
@@ -22,14 +28,19 @@ const actions = {
     commit('SET_CENTER', data);
   },
 
-  //when updating pace, update also center
+  //when updating place, update also center
   setPlace({commit}, data) {
     commit('SET_PLACE', data);
     commit('SET_CENTER', {
       lat: data.geometry.location.lat(), 
       lng: data.geometry.location.lng()
     });
-  }
+  },
+
+  setBounds({commit}, data) {
+    console.log(data)
+    commit('SET_BOUNDS', data);
+  },
 };
 
 const getters = {
@@ -39,6 +50,9 @@ const getters = {
   },
   place (state) {
     return state.place;
+  },
+  bounds (state) {
+    return state.bounds;
   }
 };
 

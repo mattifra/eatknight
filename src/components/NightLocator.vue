@@ -13,14 +13,15 @@
     <br>
     <gmap-map
       :center="center"
-      :zoom="12"
+      :zoom="14"
       ref="mapRef"
+      @bounds_changed="getPlacesFromBounds" 
       style="width:100%;  height: 400px;">
       <gmap-marker
         :key="index"
         v-for="(m, index) in markers"
         :position="m.position"
-        @click="center=m.position" ></gmap-marker>
+        @click="openInfo" ></gmap-marker>
     </gmap-map>
     <p>{{place}} </p>
     <HelloWorld msg="ciao" />
@@ -62,6 +63,35 @@ export default {
 
 
   methods: {
+
+    openInfo(el) {
+      console.log(el)
+    },
+   
+
+    getPlacesFromBounds(bounds) {
+      if (bounds) {
+        let service, marker, request = {
+          bounds: bounds,
+          keyword: 'sushi'
+        };
+      
+        this.$refs.mapRef.$mapPromise.then((map) => {
+          service = new this.google.maps.places.PlacesService(map);
+          service.nearbySearch(request,(results, status) => {
+            if (status === this.google.maps.places.PlacesServiceStatus.OK) {
+              console.log(results, bounds);
+              results.forEach(el => {
+                marker = el.geometry.location;
+                this.markers.push({ position: marker });
+              })
+            }
+          });
+        })
+      }
+    
+    },
+
     // receives a place object via the autocomplete component
     setPlace(place) {
       this.$store.dispatch('setPlace', place);
@@ -70,7 +100,7 @@ export default {
     geolocate() {
       navigator.geolocation.getCurrentPosition(position => {
         this.$store.dispatch('setCenter', {lat: position.coords.latitude, lng: position.coords.longitude});
-        this.getNearbyPlaces(this.center);
+        this.getNearbyPlaces();
       });
     },
 

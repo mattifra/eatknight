@@ -10,15 +10,12 @@ const mutations = {
       lat: lat,
       lng: lng
     };
-    console.log('Center changed')
   },
   'SET_PLACE'(state, place) {
     state.place = place
-    console.log('Place changed')
   },
   'SET_BOUNDS'(state, bounds) {
     state.bounds = bounds
-    console.log('bounds changed')
   }
 };
 
@@ -38,7 +35,6 @@ const actions = {
   },
 
   setBounds({commit}, data) {
-    console.log(data)
     commit('SET_BOUNDS', data);
   },
 };

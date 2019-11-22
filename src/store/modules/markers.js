@@ -1,3 +1,5 @@
+//import Today from '../../data/date'
+
 const state = {
   markers: [],
   selectedMarker: {},
@@ -10,9 +12,7 @@ const mutations = {
     state.selectedMarker = marker
   },
   'SET_MARKERS'(state, markerslist) {
-    markerslist.forEach(el => {
-      state.markers.push( el );
-    })
+    state.markers = markerslist;
   },
 };
 

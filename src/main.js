@@ -11,7 +11,8 @@ Vue.config.productionTip = false
 Vue.use(VueGoogleMaps, {
   load: {
     key: 'AIzaSyDFSrFaAhteO4J1RCbOKU8_KSzCsE7atpw',
-    libraries: 'places'
+    libraries: 'places',
+    v: '3.38'
   }
 })
 

@@ -22,11 +22,13 @@
         :key="index"
         v-for="(m, index) in markers"
         :position="m.geometry.location"
-        @click="openInfo(m)" ></gmap-marker>
+        :icon="MarkerIcon"
+        :visible="isAval(m)"
+ì        @click="openInfo(m)" ></gmap-marker>
         <InfoWindow />
     </gmap-map>
     <p>{{place}} </p>
-  
+ì  
   </div>
 
 </template>
@@ -35,13 +37,23 @@
 
 import {gmapApi} from 'vue2-google-maps'
 import InfoWindow from './InfoWindow'
-import {mapGetters} from 'vuex';
+import {mapGetters} from 'vuex'
+import Now from '../data/date'
+import { MAP} from '../data/map'
+
 
 
 export default {
   name: "NightLocator",
   components: {
     InfoWindow
+  },
+
+  data() {
+    return {
+      Now: new Date(Now),
+      MarkerIcon: MAP.MARKER_ICON
+    }
   },
 
   computed: {
@@ -52,7 +64,7 @@ export default {
       bounds: 'bounds',
       selectedMarker: 'selectedMarker',
       markers: 'markers'
-    }),
+    })
   },
 
   mounted() {
@@ -61,6 +73,11 @@ export default {
 
 
   methods: {
+
+    
+    isAval(m) {
+      return m.opening_hours.isOpen(this.Now)
+    },
 
     openInfo(marker) {
       this.$store.dispatch('selectMarker', marker);
@@ -76,7 +93,7 @@ export default {
       console.log(this.bounds)
       let request = {
         bounds: this.bounds,
-        keyword: 'sushi'
+        keyword: 'food'
       };
       this.gmapNearbySearch(request)
     },
@@ -103,23 +120,51 @@ export default {
       let request = {
         location: this.center,
         radius: 1000,
-        keyword: 'sushi'
+        keyword: 'sushi',
+        openNow: true
       };
       this.gmapNearbySearch(request, true)
 
     },
 
+
     gmapNearbySearch(req, setCenter) {
 
       let service, request = req;
+      
 
       this.$refs.mapRef.$mapPromise.then((map) => {
         service = new this.google.maps.places.PlacesService(map);
         service.nearbySearch(request,(results, status) => {
           if (status === this.google.maps.places.PlacesServiceStatus.OK) {
-            this.$store.dispatch('setMarkers', results)
+            results.forEach(el => {
+              this.gmapGetDetails(el)
+            })
+            this.$store.dispatch('setMarkers', this.markers)
             console.log(this.markers);
             if (setCenter) map.setCenter(results[0].geometry.location);
+          }
+        });
+      }
+      )
+    },
+
+    gmapGetDetails(el) {
+
+      const request = {
+        placeId: el.place_id,
+        fields: ['name', 'rating', 'formatted_phone_number', 'vicinity', 'geometry', 'opening_hours', 'utc_offset_minutes']
+      };
+
+      this.$refs.mapRef.$mapPromise.then((map) => {
+        let service = new this.google.maps.places.PlacesService(map);
+        service.getDetails(request, (place, status)=> {
+          if (status === this.google.maps.places.PlacesServiceStatus.OK && place.opening_hours  ) {
+            let isOpen = place.opening_hours.isOpen(new Date(Now));
+            this.markers.push( place );
+            let closeTime = place.opening_hours.periods;
+            console.log(closeTime)
+            console.log(isOpen)
           }
         });
       })

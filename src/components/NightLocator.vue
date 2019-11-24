@@ -1,34 +1,39 @@
 <template>
   <div>
-    <div>
-      <h2>Search and add a pin</h2>
+    <div class="Header">
+      <h2>Hungry?</h2>
       <label>
         <gmap-autocomplete
           @place_changed="setPlace">
         </gmap-autocomplete>
-        <button @click="getNearbyPlacesFromSearch">Add</button>
+        <button @click="geolocate">Localizeme</button>
       </label>
-      <br/>
+      <br/> 
     </div>
-    <br>
     <gmap-map
       :center="center"
       :zoom="14"
       ref="mapRef"
+      :options="{
+        mapTypeControl: false,
+        scaleControl: false,
+        streetViewControl: false,
+        rotateControl: false,
+        fullscreenControl: false,
+        styles: Styles
+      }"
       @bounds_changed="setBounds"
-      @idle="getPlacesFromBounds"
-      style="width:100%;  height: 400px;">
+      @idle="getPlacesFromBounds">
       <gmap-marker
         :key="index"
         v-for="(m, index) in markers"
         :position="m.geometry.location"
         :icon="MarkerIcon"
         :visible="isAval(m)"
-ì        @click="openInfo(m)" ></gmap-marker>
+        @click="openInfo(m)" ></gmap-marker>
         <InfoWindow />
     </gmap-map>
-    <p>{{place}} </p>
-ì  
+
   </div>
 
 </template>
@@ -52,7 +57,8 @@ export default {
   data() {
     return {
       Now: new Date(Now),
-      MarkerIcon: MAP.MARKER_ICON
+      MarkerIcon: MAP.MARKER_ICON,
+      Styles: MAP.STYLE
     }
   },
 
@@ -104,15 +110,11 @@ export default {
     },
  
     geolocate() {
+
       navigator.geolocation.getCurrentPosition(position => {
         this.$store.dispatch('setCenter', {lat: position.coords.latitude, lng: position.coords.longitude});
         this.getNearbyPlacesFromCenter();
       });
-    },
-
-
-    getNearbyPlacesFromSearch() {
-      this.getNearbyPlacesFromCenter();
     },
     
 
@@ -173,3 +175,31 @@ export default {
   }
 };
 </script>
+
+
+<style lang="scss">
+
+.vue-map-container {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+}
+
+.Header {
+  position: relative;
+  background: #fff;
+  z-index: 1;
+  margin: 20px;
+  border-radius: 20px;
+  padding: 8px;
+
+   h2 {
+    margin: 0 0 8px 0;
+  }
+}
+
+
+
+</style>

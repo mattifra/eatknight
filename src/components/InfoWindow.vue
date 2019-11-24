@@ -6,7 +6,7 @@
           <p>{{selectedMarker.name}}</p>
           <p>Rating: {{selectedMarker.rating}}</p>
           <p>Dove: {{selectedMarker.vicinity}}</p>
-          <a :href="directions" >Directions</a>
+          <a :href="directions" class="Btn" >Directions</a>
           <button>See details</button>
   </GmapInfoWindow>
 </template>

@@ -6,7 +6,7 @@
         <gmap-autocomplete
           @place_changed="setPlace">
         </gmap-autocomplete>
-        <button @click="geolocate">Localizeme</button>
+        <button @click="geolocate"><font-awesome-icon icon="compass"/></button>
       </label>
       <br/> 
     </div>
@@ -31,9 +31,8 @@
         :icon="MarkerIcon"
         :visible="isAval(m)"
         @click="openInfo(m)" ></gmap-marker>
-        <InfoWindow />
     </gmap-map>
-
+     <Detail />
   </div>
 
 </template>
@@ -41,7 +40,7 @@
 <script>
 
 import {gmapApi} from 'vue2-google-maps'
-import InfoWindow from './InfoWindow'
+import Detail from './Detail'
 import {mapGetters} from 'vuex'
 import Now from '../data/date'
 import { MAP} from '../data/map'
@@ -51,7 +50,7 @@ import { MAP} from '../data/map'
 export default {
   name: "NightLocator",
   components: {
-    InfoWindow
+    Detail
   },
 
   data() {
@@ -122,7 +121,7 @@ export default {
       let request = {
         location: this.center,
         radius: 1000,
-        keyword: 'sushi',
+        keyword: ['restaurant', 'bar', 'kebab'],
         openNow: true
       };
       this.gmapNearbySearch(request, true)

@@ -5,13 +5,13 @@
             <div class="Detail__Header">
               <h3 class="m0">{{selectedMarker.name}}</h3>
               <button class="Detail__Close" @click="closeInfoWin" aria-label="close">
-                <font-awesome-icon icon="times" />
+                clos
               </button>
             </div>
             <div class="Detail__Body">
               <p>Rating: {{selectedMarker.rating}}</p>
               <p>Dove: {{selectedMarker.vicinity}}</p>
-              <a :href="directions" class="Btn" >Directions</a>
+              <a :href="directions" class="Btn Btn--Primary" >Directions</a>
             </div>
     </div>
   </transition>
@@ -47,25 +47,24 @@ export default {
 <style lang="scss">
   .Detail {
     position: fixed;
-    bottom: 0;
-    left: 0;
-    right: 0;
+    bottom: 15px;
+    left: 15px;
+    right: 15px;
     background: white;
     z-index: 1;
     padding: 20px;
-    border-radius: 20px 20px 0 0;
-    box-shadow: 0px 0px 10px -1px rgba(0,0,0,0.70);
+    box-shadow: $primary-shadow;
+    border-radius: 25px;
+    text-align: left;
 
     &__Header {
-      display: flex;
-      align-items: center;
-      justify-content: space-between;
+      display: grid;
+      grid-template-columns: 1fr 32px;
+      grid-gap: 16px;
       margin-bottom: 8px;
     }
 
-    &__Body {
-      text-align: left;
-    }
+
 
     &__Close {
       background: #d7e6f1;

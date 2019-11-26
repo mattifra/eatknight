@@ -11,7 +11,15 @@ const MAP = {
       b: 'px'
     }
   },
-  STYLE: mapStyle
+  OPTS: {
+    mapTypeControl: false,
+    scaleControl: false,
+    zoomControl: false,
+    streetViewControl: false,
+    rotateControl: false,
+    fullscreenControl: false,
+    styles: mapStyle
+  }
 }
 
 export {MAP}

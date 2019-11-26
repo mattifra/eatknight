@@ -2,19 +2,8 @@ import Vue from 'vue'
 import * as VueGoogleMaps from 'vue2-google-maps'
 import App from './App.vue'
 import store from './store/store'
-//const fb = require('./firebaseConfig.js')
-import { library } from '@fortawesome/fontawesome-svg-core'
-import { faTimes, faCompass } from '@fortawesome/free-solid-svg-icons'
-import { FontAwesomeIcon } from '@fortawesome/vue-fontawesome'
-
-library.add(
-  faTimes,
-  faCompass
-)
-
-
-Vue.component('font-awesome-icon', FontAwesomeIcon)
-
+ //const fb = require('./firebaseConfig.js')
+import "./assets/scss/config/global.scss"
 
 
 Vue.config.productionTip = false

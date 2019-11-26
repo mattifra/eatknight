@@ -1,27 +1,16 @@
 <template>
   <div>
     <div class="Header">
-      <h2>Hungry?</h2>
-      <label>
-        <gmap-autocomplete
-          @place_changed="setPlace">
-        </gmap-autocomplete>
-        <button @click="geolocate"><font-awesome-icon icon="compass"/></button>
-      </label>
-      <br/> 
+      <h2 class="m0">Hungry?</h2>
+      <p class="m0">Find your night place to eat</p>
+      <SearchInput />
+      <button @click="geolocate" class="Btn Btn--Round Geolocate">loc</button>
     </div>
     <gmap-map
       :center="center"
       :zoom="14"
       ref="mapRef"
-      :options="{
-        mapTypeControl: false,
-        scaleControl: false,
-        streetViewControl: false,
-        rotateControl: false,
-        fullscreenControl: false,
-        styles: Styles
-      }"
+      :options="Opts"
       @bounds_changed="setBounds"
       @idle="getPlacesFromBounds">
       <gmap-marker
@@ -41,6 +30,7 @@
 
 import {gmapApi} from 'vue2-google-maps'
 import Detail from './Detail'
+import SearchInput from './SearchInput'
 import {mapGetters} from 'vuex'
 import Now from '../data/date'
 import { MAP} from '../data/map'
@@ -50,14 +40,15 @@ import { MAP} from '../data/map'
 export default {
   name: "NightLocator",
   components: {
-    Detail
+    Detail,
+    SearchInput
   },
 
   data() {
     return {
       Now: new Date(Now),
       MarkerIcon: MAP.MARKER_ICON,
-      Styles: MAP.STYLE
+      Opts: MAP.OPTS
     }
   },
 
@@ -101,11 +92,6 @@ export default {
         keyword: 'food'
       };
       this.gmapNearbySearch(request)
-    },
-
-    // receives a place object via the autocomplete component
-    setPlace(place) {
-      this.$store.dispatch('setPlace', place);
     },
  
     geolocate() {
@@ -190,15 +176,17 @@ export default {
   position: relative;
   background: #fff;
   z-index: 1;
-  margin: 20px;
-  border-radius: 20px;
+  margin: 15px;
+  border-radius: 100px;
   padding: 8px;
-
-   h2 {
-    margin: 0 0 8px 0;
-  }
+  box-shadow: $primary-shadow;
 }
 
+.Geolocate {
+  position: absolute;
+  bottom: -32px;
+  right: 15px;
+}
 
 
 </style>

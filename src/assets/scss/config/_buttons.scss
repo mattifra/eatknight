@@ -1,12 +1,15 @@
+button {
+  border: 0;
+  appearance: none;
+  background: transparent;
+}
 .Btn {
   display: inline-flex;
   align-items: center;
   justify-content: center;
   border-radius: 60px;
   text-decoration: none;
-  border: 0;
-  appearance: none;
-  
+
   &--Primary {
     background: $main-color;
     padding: 8px 32px;

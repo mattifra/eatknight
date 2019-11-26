@@ -1,6 +1,7 @@
 input {
   padding: 4px 12px;
   border: 0;
+  font-family: $font;
 }
 
 .Input {
@@ -10,4 +11,17 @@ input {
     height: 60px;
     border-radius: 60px;
   }
+}
+
+input::-webkit-input-placeholder {
+  font-family: $font;
+}
+input:-ms-input-placeholder {
+  font-family: $font;
+}
+input:-moz-placeholder {
+  font-family: $font;
+}
+input::-moz-placeholder {
+  font-family: $font;
 }

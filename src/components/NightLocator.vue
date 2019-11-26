@@ -4,7 +4,9 @@
       <h2 class="m0">Hungry?</h2>
       <p class="m0">Find your night place to eat</p>
       <SearchInput />
-      <button @click="geolocate" class="Btn Btn--Round Geolocate">loc</button>
+      <button @click="geolocate" class="Btn Btn--Round Geolocate">
+        <SvgIcon :name="'locate'" />
+      </button>
     </div>
     <gmap-map
       :center="center"
@@ -34,6 +36,8 @@ import SearchInput from './SearchInput'
 import {mapGetters} from 'vuex'
 import Now from '../data/date'
 import { MAP} from '../data/map'
+import SvgIcon from './SvgIcon.vue'
+
 
 
 
@@ -41,7 +45,8 @@ export default {
   name: "NightLocator",
   components: {
     Detail,
-    SearchInput
+    SearchInput,
+    SvgIcon
   },
 
   data() {
@@ -180,6 +185,10 @@ export default {
   border-radius: 100px;
   padding: 8px;
   box-shadow: $primary-shadow;
+
+  h2, p {
+    text-align: center;
+  }
 }
 
 .Geolocate {

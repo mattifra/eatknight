@@ -14,7 +14,10 @@
 
 <script>
 
+
+
 export default {
+
   name: 'Header',
   methods: {
       // receives a place object via the autocomplete component

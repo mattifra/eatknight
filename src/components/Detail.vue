@@ -5,7 +5,7 @@
             <div class="Detail__Header">
               <h3 class="m0">{{selectedMarker.name}}</h3>
               <button class="Detail__Close" @click="closeInfoWin" aria-label="close">
-                clos
+                <SvgIcon :name="'close'" :width="12"/>
               </button>
             </div>
             <div class="Detail__Body">
@@ -19,11 +19,14 @@
 
 <script>
 import {mapGetters} from 'vuex';
+import SvgIcon from './SvgIcon.vue'
+
 
 export default {
   name: 'Detail',
-
-  
+  components: {
+    SvgIcon
+  },
   computed: {
     ...mapGetters({
       selectedMarker: 'selectedMarker',

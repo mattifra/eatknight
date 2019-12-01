@@ -102,8 +102,16 @@ export default {
     geolocate() {
 
       navigator.geolocation.getCurrentPosition(position => {
-        this.$store.dispatch('setCenter', {lat: position.coords.latitude, lng: position.coords.longitude});
-        this.getNearbyPlacesFromCenter();
+        const pos = {lat: position.coords.latitude, lng: position.coords.longitude};
+        console.log(pos)
+        this.$refs.mapRef.$mapPromise.then((map) => {
+          map.setCenter(pos)
+        })
+        this.$store.dispatch('setCenter', pos).then(resp => {
+          this.getNearbyPlacesFromCenter();
+          console.log(resp)
+        });
+        
       });
     },
     
@@ -112,7 +120,7 @@ export default {
       let request = {
         location: this.center,
         radius: 1000,
-        keyword: ['restaurant', 'bar', 'kebab'],
+        keyword: ['restaurant', 'bar', 'kebab', 'bakery', 'meal_takeaway'],
         openNow: true
       };
       this.gmapNearbySearch(request, true)
@@ -183,7 +191,7 @@ export default {
   z-index: 1;
   margin: 15px;
   border-radius: 100px;
-  padding: 8px;
+  padding: 8px 70px;
   box-shadow: $primary-shadow;
 
   h2, p {

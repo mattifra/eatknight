@@ -1,5 +1,7 @@
 // vue.config.js
 const path = require('path')
+const PrerenderSPAPlugin = require('prerender-spa-plugin')
+
 
 module.exports = {
   chainWebpack: config => {
@@ -7,6 +9,14 @@ module.exports = {
     types.forEach(type => addStyleResource(config.module.rule('scss').oneOf(type)))
     config.module.rule('svg-sprite').use('svgo-loader').loader('svgo-loader');
   },
+  configureWebpack: {
+    plugins: [
+      new PrerenderSPAPlugin({
+        staticDir: path.join(__dirname, 'dist'),
+        routes: [ '/']
+      })
+    ]
+   },
   pluginOptions: {
     svgSprite: {
         dir: 'src/assets/icons',

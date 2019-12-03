@@ -1,4 +1,6 @@
 import Vue from 'vue'
+import VueRouter from 'vue-router';
+import { routes } from './routes';
 import * as VueGoogleMaps from 'vue2-google-maps'
 import App from './App.vue'
 import store from './store/store'
@@ -7,6 +9,8 @@ import "./assets/scss/config/global.scss"
 
 
 Vue.config.productionTip = false
+
+Vue.use(VueRouter);
 
  
 Vue.use(VueGoogleMaps, {
@@ -17,9 +21,15 @@ Vue.use(VueGoogleMaps, {
   }
 })
 
+const router = new VueRouter({
+  mode: 'history',
+  routes
+});
+
 
 new Vue({
   store,
+  router,
   render: h => h(App),
 }).$mount('#app')
 

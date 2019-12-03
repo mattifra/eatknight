@@ -1,17 +1,13 @@
 <template>
   <div id="app">
-    <NightLocator />
+    <router-view></router-view>
   </div>
 </template>
 
 <script>
-import NightLocator from './components/NightLocator.vue'
 
 export default {
-  name: 'app',
-  components: {
-    NightLocator
-  }
+  name: 'app'
 }
 </script>
 

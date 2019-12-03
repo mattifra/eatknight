@@ -24,6 +24,7 @@
         @click="openInfo(m)" ></gmap-marker>
     </gmap-map>
      <Detail />
+     <Menu />
   </div>
 
 </template>
@@ -37,6 +38,7 @@ import {mapGetters} from 'vuex'
 import Now from '../data/date'
 import { MAP} from '../data/map'
 import SvgIcon from './SvgIcon.vue'
+import Menu from './Menu.vue'
 
 
 
@@ -46,7 +48,8 @@ export default {
   components: {
     Detail,
     SearchInput,
-    SvgIcon
+    SvgIcon,
+    Menu
   },
 
   data() {

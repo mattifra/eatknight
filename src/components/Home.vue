@@ -1,7 +1,8 @@
 <template>
    <div class="Home text-center">
-      <h1>Trova dove mangiare di notte</h1>
-      <h2>Con Eatknight puoi trovare i posti della tua città dove mangiare la notte!</h2>
+      <img src="../assets/knight.png" alt="logo" width="140px" />
+      <h1 class="Home__Title">Trova dove mangiare di notte</h1>
+      <h2 class="Home__SubTitle">Con Eatknight puoi trovare i posti della tua città dove mangiare la notte!</h2>
       <router-link to="/map" class="Btn Btn--Primary">Inizia a cercare!</router-link>
     </div>
 </template>
@@ -19,6 +20,15 @@ export default {
 
 .Home {
   padding: 20px;
+
+  &__Title {
+    font-size: 22px;
+  }
+
+  &__SubTitle {
+    font-size: 18px;
+    margin-bottom: 32px;
+  }
 }
 
 </style>

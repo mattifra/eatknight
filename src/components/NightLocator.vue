@@ -24,6 +24,7 @@
         @click="openInfo(m)" ></gmap-marker>
     </gmap-map>
      <Detail />
+     <Menu />
   </div>
 
 </template>
@@ -31,12 +32,12 @@
 <script>
 
 import {gmapApi} from 'vue2-google-maps'
-import Detail from './Detail'
 import SearchInput from './SearchInput'
 import {mapGetters} from 'vuex'
 import Now from '../data/date'
 import { MAP} from '../data/map'
 import SvgIcon from './SvgIcon.vue'
+import {db } from '../firebaseConfig.js';
 
 
 
@@ -44,9 +45,10 @@ import SvgIcon from './SvgIcon.vue'
 export default {
   name: "NightLocator",
   components: {
-    Detail,
     SearchInput,
-    SvgIcon
+    SvgIcon,
+    'Detail': () => import('./Detail.vue'),
+    'Menu': () => import('./Menu.vue')
   },
 
   data() {
@@ -145,8 +147,13 @@ export default {
             if (setCenter) map.setCenter(results[0].geometry.location);
           }
         });
-      }
-      )
+      })
+
+     var starCountRef = db.ref('stores');
+      starCountRef.on('value', function(snapshot) {
+        console.log(snapshot.val());
+      });
+
     },
 
     gmapGetDetails(el) {
@@ -160,11 +167,11 @@ export default {
         let service = new this.google.maps.places.PlacesService(map);
         service.getDetails(request, (place, status)=> {
           if (status === this.google.maps.places.PlacesServiceStatus.OK && place.opening_hours  ) {
-            let isOpen = place.opening_hours.isOpen(new Date(Now));
+            //let isOpen = place.opening_hours.isOpen(new Date(Now));
             this.markers.push( place );
-            let closeTime = place.opening_hours.periods;
-            console.log(closeTime)
-            console.log(isOpen)
+            //let closeTime = place.opening_hours.periods;
+            //console.log(closeTime)
+            //console.log(isOpen)
           }
         });
       })

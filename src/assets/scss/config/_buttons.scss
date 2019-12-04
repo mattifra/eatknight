@@ -20,6 +20,14 @@ button {
     }
   }
 
+  &--Secondary {
+    background: white;
+    box-shadow: $primary-shadow;
+    padding: 8px 32px;
+    color: $typo1;
+    font-weight: bold;
+  }
+
   &--Round {
     height: 58px;
     width: 58px;

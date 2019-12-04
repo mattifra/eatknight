@@ -54,7 +54,7 @@ export default {
     left: 15px;
     right: 15px;
     background: white;
-    z-index: 1;
+    z-index: 2;
     padding: 20px;
     box-shadow: $primary-shadow;
     border-radius: 25px;

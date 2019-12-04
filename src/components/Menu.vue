@@ -12,13 +12,13 @@
     </div>
     <ul  class="Menu__List">
       <li>
-        <router-link to="/" class="Btn Btn--Secondary">Home</router-link> 
+        <router-link to="/report" class="Btn Btn--Secondary">Suggerisci un posto </router-link>
       </li>
       <li>
         <router-link to="/contact" class="Btn Btn--Secondary">Contatti</router-link>
       </li>
-      <li>
-        <router-link to="/report" class="Btn Btn--Secondary">Non trovi un posto che conosci già? </router-link>
+       <li>
+        <router-link to="/" class="Btn Btn--Secondary">Home</router-link> 
       </li>
     </ul>
   </div>
@@ -38,39 +38,53 @@ export default {
     return {
       MenuOpen: false
     }
-  },
-
-  computed: {
-    
-  },
-
-
-  methods: {
-
-    
   }
+
+
 };
 </script>
 
 
 <style lang="scss">
 
-  .Menu {
-    position: fixed;
-    z-index: 1;
-    bottom: 20px;
-    left: 20px;
-    width: 100%;
+.Menu {
+  position: fixed;
+  z-index: 1;
+  bottom: 20px;
+  left: 20px;
+  width: 100%;
+  transition: all .2s ease-in-out;
 
-   ul {
-     margin: 0;
-     padding: 0;
-     list-style-type: none;
-   }
+  button {
+    position: relative;
+    z-index: 1;
+  }
+
+  &:after {
+    content: '';
+    display: block;
+    width: 500px;
+    height: 500px;
+    background: rgba(255, 255, 255, .4);
+    border-radius: 500px;
+    position: absolute;
+    top: -100px;
+    left: -340px; 
+    opacity: 0;
+    visibility: hidden;
+    scale: .5;
+  }
+
+    ul {
+      margin: 0;
+      padding: 0;
+      list-style-type: none;
+    }
 
 
     li {
       position: absolute;
+      z-index: 1;
       opacity: 0;
       visibility: hidden;
       transition:  all .2s ease-in-out;
@@ -92,9 +106,16 @@ export default {
     }
     
     &.active {
+
       li {
         opacity: 1;
         visibility: visible;
+      }
+
+      &:after {
+        opacity: 1;
+        visibility: visible;
+        scale: 1;
       }
     }
   }
@@ -111,8 +132,8 @@ export default {
 /* Icon 1 */
 
 #nav-icon3 {
-  width: 32px;
-  height: 20px;
+  width: 28px;
+  height: 18px;
   position: relative;
   -webkit-transform: rotate(0deg);
   -moz-transform: rotate(0deg);

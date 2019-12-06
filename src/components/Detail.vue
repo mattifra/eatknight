@@ -11,6 +11,7 @@
             <div class="Detail__Body">
               <p>Rating: {{selectedMarker.rating}}</p>
               <p>Dove: {{selectedMarker.vicinity}}</p>
+              <p>Close at: {{closeAt/100}}</p>
               <a :href="directions" class="Btn Btn--Primary" >Directions</a>
             </div>
     </div>
@@ -34,11 +35,28 @@ export default {
       infoWinPos: 'infoWinPos'
     }),
     directions() {
-      let lat = this.infoWinPos ? this.infoWinPos.lat() : '';
-      let lng = this.infoWinPos ? this.infoWinPos.lng() : '';
+
+      let lat, lng;
+
+      if (this.selectedMarker.suggested) {
+        lat = this.infoWinPos ? this.infoWinPos.lat : '';
+        lng = this.infoWinPos ? this.infoWinPos.lng : '';
+      } else {
+        lat = this.infoWinPos ? this.infoWinPos.lat() : ''; 
+        lng = this.infoWinPos ? this.infoWinPos.lng() : '';
+      }
+    
       return `https://www.google.com/maps/dir/?api=1&destination=${lat},${lng}`
-    }
+    },
+
+    closeAt() {
+      let closeHours = this.selectedMarker.opening_hours.periods.map(a => a.close.time);
+      let closeHoursInt = closeHours.map(Number);
+      return Math.max(...closeHoursInt)
+    } 
+
   },
+
   methods: {
     closeInfoWin() {
       this.$store.dispatch('closeInfoWin');

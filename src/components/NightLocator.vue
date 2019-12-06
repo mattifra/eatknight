@@ -79,7 +79,10 @@ export default {
 
     
     isAval(m) {
-      return m.opening_hours.isOpen(this.Now)
+      let isOpen;
+      try { isOpen = m.opening_hours.isOpen(this.Now)}
+      catch(e) {isOpen = true }
+      return isOpen
     },
 
     openInfo(marker) {
@@ -142,21 +145,32 @@ export default {
             results.forEach(el => {
               this.gmapGetDetails(el)
             })
-            this.$store.dispatch('setMarkers', this.markers)
-            console.log(this.markers);
+
+            let newArr;
+            let stores = db.ref('stores');
+            stores.on('value', (snapshot) => {
+              newArr = [
+                ...this.markers,
+                ...snapshot.val()
+              ];
+            })
+            if (newArr) this.$store.dispatch('setMarkers', newArr)
+            console.log(newArr)
+  
             if (setCenter) map.setCenter(results[0].geometry.location);
           }
         });
       })
 
-     var starCountRef = db.ref('stores');
-      starCountRef.on('value', function(snapshot) {
-        console.log(snapshot.val());
-      });
+     ;
 
     },
 
     gmapGetDetails(el) {
+
+      let filterClosing = (shop) => {
+        return (shop.close.time  >  2300 || shop.close.time < 600)
+      }
 
       const request = {
         placeId: el.place_id,
@@ -167,11 +181,11 @@ export default {
         let service = new this.google.maps.places.PlacesService(map);
         service.getDetails(request, (place, status)=> {
           if (status === this.google.maps.places.PlacesServiceStatus.OK && place.opening_hours  ) {
-            //let isOpen = place.opening_hours.isOpen(new Date(Now));
-            this.markers.push( place );
-            //let closeTime = place.opening_hours.periods;
-            //console.log(closeTime)
-            //console.log(isOpen)
+            let periods = place.opening_hours.periods;
+            let shops = periods.filter(filterClosing);
+            if (shops.length > 0) {
+              this.markers.push( place );
+            }
           }
         });
       })

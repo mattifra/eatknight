@@ -1,7 +1,11 @@
-input, textarea {
-  padding: 8px 12px;
+input,  textarea {
+  padding: 10px 12px;
   border: 0;
   font-family: $font;
+  width: 100%;
+}
+
+.Input {
   background: $bg-default;
   color: #6d71b1;
   border-radius: 10px;
@@ -10,16 +14,6 @@ input, textarea {
   }
 }
 
-
-
-.Input {
-  &--Round {
-    box-shadow: $primary-shadow;
-    background: white;
-    height: 60px;
-    border-radius: 60px;
-  }
-}
 
 input::-webkit-input-placeholder {
   font-family: $font;
@@ -37,4 +31,6 @@ input::-moz-placeholder {
 .Form__Basic {
   display: grid;
   grid-gap: 15px;
+  max-width: 600px;
+  margin: 0 auto;
 }

@@ -219,7 +219,6 @@ export default {
   position: relative;
   background: #fff;
   z-index: 1;
-  margin: 15px;
   border-radius: 100px;
   padding: 8px 70px;
   box-shadow: $primary-shadow;

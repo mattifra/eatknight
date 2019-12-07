@@ -9,8 +9,11 @@
               </button>
             </div>
             <div class="Detail__Body">
-              <p>Dove: {{selectedMarker.vicinity}}</p>
-              <p>Close at: {{closeAt/100}}</p>
+              <p>{{selectedMarker.vicinity}}</p>
+              <div class="d-flex mb-2">
+                <a :href="`tel:${selectedMarker.formatted_phone_number}`" class="mr-2">{{selectedMarker.formatted_phone_number}}</a>
+                <span><strong>Closes at {{closeAt/100}}</strong></span>
+              </div>
             </div>
             <div class="Detail__Footer">
                 <a :href="directions" class="Btn Btn--Primary" >Directions</a>

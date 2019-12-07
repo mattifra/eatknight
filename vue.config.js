@@ -19,17 +19,23 @@ module.exports = {
    },
   pluginOptions: {
     svgSprite: {
-        dir: 'src/assets/icons',
-        test: /\.(svg)(\?.*)?$/,
-        loaderOptions: {
-            extract: true,
-            spriteFilename: 'img/icons.[hash:8].svg' // or 'img/icons.svg' if filenameHashing == false
-        },
-        pluginOptions: {
-            plainSprite: true
-        }    
-    }    
-}    
+      dir: 'src/assets/icons',
+      test: /\.(svg)(\?.*)?$/,
+      loaderOptions: {
+        extract: true,
+        spriteFilename: 'img/icons.[hash:8].svg'
+      },
+      pluginOptions: {
+        plainSprite: true
+      }
+    },
+    i18n: {
+      locale: 'en',
+      fallbackLocale: 'en',
+      localeDir: 'locales',
+      enableInSFC: false
+    }
+  }    
 }
 
 function addStyleResource (rule) {

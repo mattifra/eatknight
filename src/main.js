@@ -4,8 +4,9 @@ import { routes } from './routes';
 import * as VueGoogleMaps from 'vue2-google-maps'
 import App from './App.vue'
 import store from './store/store'
- //const fb = require('./firebaseConfig.js')
+//const fb = require('./firebaseConfig.js')
 import "./assets/scss/config/global.scss"
+import i18n from './i18n'
 
 
 Vue.config.productionTip = false
@@ -28,7 +29,8 @@ const router = new VueRouter({
 new Vue({
   store,
   router,
-  render: h => h(App),
+  i18n,
+  render: h => h(App)
 }).$mount('#app')
 
 

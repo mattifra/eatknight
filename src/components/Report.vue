@@ -4,12 +4,12 @@
         <h1>Cannot find your place?</h1>
         <p>Send us the information of your favourite late night zozzone!</p>
      </div>
-      <form class="Form__Basic">
-        <input placeholder="Name of the place*" v-model="storeName" />
-        <input placeholder="Number of the place" v-model="storeNumber" />
-        <gmap-autocomplete  @place_changed="setPlace" />
-        <input placeholder="Closing time" v-model="storeClose" />
-        <button class="Btn Btn--Primary" @click="send">Send</button>
+      <form class="Form__Basic" @submit="send">
+        <input class="Input" placeholder="Name of the place*" v-model="storeName" required/>
+        <input class="Input" placeholder="Number of the place" v-model="storeNumber" />
+        <gmap-autocomplete class="Input" placeholder="Address of the place"  @place_changed="setPlace" required />
+        <input class="Input" placeholder="Closing time" v-model="storeClose" required />
+        <button  type="submit" class="Btn Btn--Primary" >{{cta}}</button>
       </form>
     </div>
 </template>
@@ -25,7 +25,8 @@ export default {
       storeName: "",
       storeClose: "",
       location: "",
-      address: ""
+      address: "",
+      cta: "Send"
     }
   },
   methods: {
@@ -35,8 +36,10 @@ export default {
       this.location = place.geometry.location;
       this.address = place.formatted_address
     },
-    send() {
-      console.log('upp')
+    send(e) {
+      e.preventDefault();
+      this.$store.dispatch('openLoader');
+      
       let store =  {
         "formatted_phone_number" : this.storeNumber,
         "geometry" : {
@@ -59,7 +62,17 @@ export default {
 ;
 
       let newChildRef = db.ref('/stores').push();
-      newChildRef.set(store)
+      newChildRef.set(store, (error) => {
+        if (error) {
+          console.log('OMG Something wen wrong', error)
+          this.$store.dispatch('closeLoader');
+        } else {
+          setTimeout( ()=> {
+              this.$store.dispatch('closeLoader');
+              this.cta = "Successfully sent!"
+            }, 500)
+        }
+      })
     }
     
   }

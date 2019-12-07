@@ -2,6 +2,7 @@ button {
   border: 0;
   appearance: none;
   background: transparent;
+  cursor: pointer;
 }
 .Btn {
   display: inline-flex;
@@ -13,7 +14,7 @@ button {
 
   &--Primary {
     background: $primary-color;
-    padding: 8px 32px;
+    padding: 12px 32px;
     color: white;
     box-shadow: 0 0 15px 1px #a0e2be;
     &:hover {

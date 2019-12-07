@@ -5,3 +5,29 @@
 .text-center {
   text-align: center;
 }
+
+@for $i from 0 through 6 {
+  .mb-#{$i} {
+    margin-bottom: (8 * $i)+px !important;
+  }
+
+  .mt-#{$i} {
+    margin-top: (8 * $i)+px !important;
+  }
+
+  .ml-#{$i} {
+    margin-left: (8 * $i)+px !important;
+  }
+
+  .mr-#{$i} {
+    margin-right: (8 * $i)+px !important;
+  }
+
+  .pb-#{$i} {
+    padding-bottom: (8 * $i)+px !important;
+  }
+
+  .pt-#{$i} {
+    padding-top: (8 * $i)+px !important;
+  }
+}

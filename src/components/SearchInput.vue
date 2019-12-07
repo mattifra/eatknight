@@ -36,10 +36,10 @@ export default {
 <style lang="scss">
 
 .pac-container {
-  width: calc(100% - 130px) !important;
-  position: fixed !important;
-  left: 30px !important;
-  top: 125px !important;
+  //width: calc(100% - 130px) !important;
+  //position: fixed !important;
+  //left: 30px !important;
+  //top: 30px !important;
   border-radius: 20px;
   padding: 15px;
 }
@@ -58,6 +58,7 @@ export default {
   overflow: hidden;
   transition: all .3s ease-in-out;
   padding-left: 14px;
+  padding-right: 14px;
 
   button {
     padding: 0;

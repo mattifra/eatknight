@@ -38,7 +38,13 @@ export default {
     return {
       MenuOpen: false
     }
-  }
+  },
+
+  watch:{
+    $route (to, from){
+      this.MenuOpen = false;
+    }
+  } 
 
 
 };

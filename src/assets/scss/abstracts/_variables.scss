@@ -4,9 +4,12 @@ $primary-color-light: #D9F4E5; //light-green;
 $primary-color-dark: #71CB99; //light-green;
 
 
-$dark: black;
+$dark-gray: black;
+$middle-gray: #d7e6f1;
 
-$typo1: $dark;
+$bg-default: $middle-gray;
+
+$typo1: $dark-gray;
 
 $primary-shadow: 0 0 6px 0 rgba(0,0,0,0.51);
 

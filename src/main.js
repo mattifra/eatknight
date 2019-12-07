@@ -10,9 +10,7 @@ import "./assets/scss/config/global.scss"
 
 Vue.config.productionTip = false
 
-Vue.use(VueRouter);
-
- 
+Vue.use(VueRouter)
 Vue.use(VueGoogleMaps, {
   load: {
     key: 'AIzaSyDFSrFaAhteO4J1RCbOKU8_KSzCsE7atpw',

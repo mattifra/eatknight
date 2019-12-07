@@ -1,13 +1,16 @@
 <template>
-   <div class="text-center">
-      <h1>Cannot find your place?</h1>
-      <input placeholder="Number" v-model="storeNumber" />
-      <input placeholder="Name" v-model="storeName" />
-        <gmap-autocomplete
-          @place_changed="setPlace">
-        </gmap-autocomplete>
-      <input placeholder="Close time" v-model="storeClose" />
-      <button @click="send">send</button>
+   <div class="Suggest">
+     <div class="Suggest__Header text-center">
+        <h1>Cannot find your place?</h1>
+        <p>Send us the information of your favourite late night zozzone!</p>
+     </div>
+      <form class="Form__Basic">
+        <input placeholder="Name of the place*" v-model="storeName" />
+        <input placeholder="Number of the place" v-model="storeNumber" />
+        <gmap-autocomplete  @place_changed="setPlace" />
+        <input placeholder="Closing time" v-model="storeClose" />
+        <button class="Btn Btn--Primary" @click="send">Send</button>
+      </form>
     </div>
 </template>
 

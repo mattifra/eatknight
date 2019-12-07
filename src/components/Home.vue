@@ -19,7 +19,6 @@ export default {
 <style lang="scss">
 
 .Home {
-  padding: 20px;
 
   &__Title {
     font-size: 22px;

@@ -22,9 +22,15 @@
         :icon="MarkerIcon"
         :visible="isAval(m)"
         @click="openInfo(m)" ></gmap-marker>
+      <gmap-marker
+        :key="index"
+        v-for="(m, index) in SuggMarkers"
+        :position="m.geometry.location"
+        :icon="MarkerIcon"
+        :visible="isAval(m)"
+        @click="openInfo(m)" ></gmap-marker>
     </gmap-map>
      <Detail />
-     <Menu />
   </div>
 
 </template>
@@ -47,35 +53,47 @@ export default {
   components: {
     SearchInput,
     SvgIcon,
-    'Detail': () => import('./Detail.vue'),
-    'Menu': () => import('./Menu.vue')
+    'Detail': () => import('./Detail.vue')
   },
 
   data() {
     return {
       Now: new Date(Now),
       MarkerIcon: MAP.MARKER_ICON,
-      Opts: MAP.OPTS
+      Opts: MAP.OPTS,
+      SuggMarkers: null
     }
   },
 
   computed: {
     google: gmapApi,
+
     ...mapGetters({
       center: 'center',
       place: 'place',
       bounds: 'bounds',
       selectedMarker: 'selectedMarker',
       markers: 'markers'
-    })
+    }),
+
+    
   },
 
   mounted() {
     this.geolocate();
+    this.suggestedMarkers();
   },
 
 
   methods: {
+
+    suggestedMarkers() {
+      let stores = db.ref('stores');
+      stores.on('value', (snapshot) => {
+        this.SuggMarkers = snapshot.val();
+        console.log('DB:', this.SuggMarkers)
+      })
+    },
 
     
     isAval(m) {
@@ -145,17 +163,8 @@ export default {
             results.forEach(el => {
               this.gmapGetDetails(el)
             })
-
-            let newArr;
-            let stores = db.ref('stores');
-            stores.on('value', (snapshot) => {
-              newArr = [
-                ...this.markers,
-                ...snapshot.val()
-              ];
-            })
-            if (newArr) this.$store.dispatch('setMarkers', newArr)
-            console.log(newArr)
+            this.$store.dispatch('setMarkers', this.markers)
+            console.log(this.markers)
   
             if (setCenter) map.setCenter(results[0].geometry.location);
           }

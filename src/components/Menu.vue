@@ -58,7 +58,7 @@ export default {
   z-index: 1;
   bottom: 20px;
   left: 20px;
-  width: 100%;
+  right: 80px;
   transition: all .2s ease-in-out;
 
   button {
@@ -112,6 +112,7 @@ export default {
     }
     
     &.active {
+      right: 20px;
 
       li {
         opacity: 1;

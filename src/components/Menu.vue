@@ -12,13 +12,13 @@
     </div>
     <ul  class="Menu__List">
       <li>
-        <router-link to="/report" class="Btn Btn--Secondary">Suggerisci un posto </router-link>
+        <router-link to="/report" class="Btn Btn--Secondary">{{ $t('menu.suggest') }} </router-link>
       </li>
       <li>
-        <router-link to="/contact" class="Btn Btn--Secondary">Contatti</router-link>
+        <router-link to="/contact" class="Btn Btn--Secondary">{{ $t('menu.contact') }}</router-link>
       </li>
        <li>
-        <router-link to="/" class="Btn Btn--Secondary">Home</router-link> 
+        <router-link to="/" class="Btn Btn--Secondary">{{ $t('menu.home') }}</router-link> 
       </li>
     </ul>
   </div>
@@ -38,7 +38,13 @@ export default {
     return {
       MenuOpen: false
     }
-  }
+  },
+
+  watch:{
+    $route (to, from){
+      this.MenuOpen = false;
+    }
+  } 
 
 
 };
@@ -52,7 +58,7 @@ export default {
   z-index: 1;
   bottom: 20px;
   left: 20px;
-  width: 100%;
+  right: 80px;
   transition: all .2s ease-in-out;
 
   button {
@@ -106,6 +112,7 @@ export default {
     }
     
     &.active {
+      right: 20px;
 
       li {
         opacity: 1;

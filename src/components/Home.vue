@@ -1,9 +1,9 @@
 <template>
    <div class="Home text-center">
       <img src="../assets/knight.png" alt="logo" width="140px" />
-      <h1 class="Home__Title">Trova dove mangiare di notte</h1>
-      <h2 class="Home__SubTitle">Con Eatknight puoi trovare i posti della tua città dove mangiare la notte!</h2>
-      <router-link to="/map" class="Btn Btn--Primary">Inizia a cercare!</router-link>
+      <h1 class="Home__Title">{{ $t('home.title') }}</h1>
+      <h2 class="Home__SubTitle">{{ $t('home.subtitle') }}</h2>
+      <router-link to="/map" class="Btn Btn--Primary">{{ $t('global.startSearching') }}</router-link>
     </div>
 </template>
 
@@ -19,7 +19,6 @@ export default {
 <style lang="scss">
 
 .Home {
-  padding: 20px;
 
   &__Title {
     font-size: 22px;

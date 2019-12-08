@@ -1,8 +1,8 @@
 <template>
   <div>
     <div class="Header">
-      <h2 class="m0">Hungry?</h2>
-      <p class="m0">Find your night place to eat</p>
+      <h2 class="m0">{{ $t('map.title') }}</h2>
+      <p class="m0">{{ $t('map.subtitle') }}</p>
       <SearchInput />
       <button @click="geolocate" class="Btn Btn--Round Geolocate">
         <SvgIcon :name="'locate'" />
@@ -22,9 +22,15 @@
         :icon="MarkerIcon"
         :visible="isAval(m)"
         @click="openInfo(m)" ></gmap-marker>
+      <gmap-marker
+        :key="index"
+        v-for="(m, index) in SuggMarkers"
+        :position="m.geometry.location"
+        :icon="MarkerIcon"
+        :visible="isAval(m)"
+        @click="openInfo(m)" ></gmap-marker>
     </gmap-map>
      <Detail />
-     <Menu />
   </div>
 
 </template>
@@ -47,39 +53,54 @@ export default {
   components: {
     SearchInput,
     SvgIcon,
-    'Detail': () => import('./Detail.vue'),
-    'Menu': () => import('./Menu.vue')
+    'Detail': () => import('./Detail.vue')
   },
 
   data() {
     return {
       Now: new Date(Now),
       MarkerIcon: MAP.MARKER_ICON,
-      Opts: MAP.OPTS
+      Opts: MAP.OPTS,
+      SuggMarkers: null
     }
   },
 
   computed: {
     google: gmapApi,
+
     ...mapGetters({
       center: 'center',
       place: 'place',
       bounds: 'bounds',
       selectedMarker: 'selectedMarker',
       markers: 'markers'
-    })
+    }),
+
+    
   },
 
   mounted() {
     this.geolocate();
+    this.suggestedMarkers();
   },
 
 
   methods: {
 
+    suggestedMarkers() {
+      let stores = db.ref('stores');
+      stores.on('value', (snapshot) => {
+        this.SuggMarkers = snapshot.val();
+        console.log('DB:', this.SuggMarkers)
+      })
+    },
+
     
     isAval(m) {
-      return m.opening_hours.isOpen(this.Now)
+      let isOpen;
+      try { isOpen = m.opening_hours.isOpen(this.Now)}
+      catch(e) {isOpen = true }
+      return isOpen
     },
 
     openInfo(marker) {
@@ -143,20 +164,22 @@ export default {
               this.gmapGetDetails(el)
             })
             this.$store.dispatch('setMarkers', this.markers)
-            console.log(this.markers);
+            console.log(this.markers)
+  
             if (setCenter) map.setCenter(results[0].geometry.location);
           }
         });
       })
 
-     var starCountRef = db.ref('stores');
-      starCountRef.on('value', function(snapshot) {
-        console.log(snapshot.val());
-      });
+     ;
 
     },
 
     gmapGetDetails(el) {
+
+      let filterClosing = (shop) => {
+        return (shop.close.time  >  2300 || shop.close.time < 600)
+      }
 
       const request = {
         placeId: el.place_id,
@@ -167,11 +190,11 @@ export default {
         let service = new this.google.maps.places.PlacesService(map);
         service.getDetails(request, (place, status)=> {
           if (status === this.google.maps.places.PlacesServiceStatus.OK && place.opening_hours  ) {
-            //let isOpen = place.opening_hours.isOpen(new Date(Now));
-            this.markers.push( place );
-            //let closeTime = place.opening_hours.periods;
-            //console.log(closeTime)
-            //console.log(isOpen)
+            let periods = place.opening_hours.periods;
+            let shops = periods.filter(filterClosing);
+            if (shops.length > 0) {
+              this.markers.push( place );
+            }
           }
         });
       })
@@ -196,7 +219,6 @@ export default {
   position: relative;
   background: #fff;
   z-index: 1;
-  margin: 15px;
   border-radius: 100px;
   padding: 8px 70px;
   box-shadow: $primary-shadow;

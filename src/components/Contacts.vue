@@ -1,6 +1,6 @@
 <template>
-   <div class="text-center">
-      <h1><p>{{ $t('contactus') }}</p></h1>
+   <div class="basic-box text-center">
+      <h1>{{ $t('contactus') }}</h1>
       <form class="Form__Basic" @submit="sendReq">
         <input class="Input" :placeholder="$t('form.name')" v-model="name" required />
         <input class="Input" :placeholder="$t('form.email')" v-model="email"  required />

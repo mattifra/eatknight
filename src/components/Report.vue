@@ -1,12 +1,12 @@
 <template>
-   <div class="Suggest">
+   <div class="Suggest basic-box">
      <div class="Suggest__Header text-center">
         <h1>{{$t('suggest.title')}}</h1>
         <p class="mb-4">{{$t('suggest.subtitle')}}</p>
      </div>
       <form class="Form__Basic" @submit="send">
         <input class="Input" :placeholder="$t('form.nameplace')" v-model="storeName" required/>
-        <input class="Input" :placeholder="$t('form.numberplace')" v-model="storeNumber" />
+        <input class="Input" :placeholder="$t('form.phoneplace')" v-model="storeNumber" />
         <gmap-autocomplete class="Input" :placeholder="$t('form.addressplace')"  @place_changed="setPlace" required />
         <input class="Input" :placeholder="$t('form.closingtime')" v-model="storeClose" required />
         <button  type="submit" class="Btn Btn--Primary" >{{cta}}</button>

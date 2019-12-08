@@ -68,7 +68,7 @@ export default {
     opacity: 0;
     visibility: hidden;
     height: 40px;
-    font-size: 16px;
+    font-size: 13px;
   }
 
   &.active {

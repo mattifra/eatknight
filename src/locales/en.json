@@ -9,8 +9,8 @@
     "subtitle": "Find your night place to eat"
   },
   "home": {
-    "title": "Find where to eat at late night",
-    "subtitle": "With eatknight you can find places in your city where to eat at late knight!"
+    "title": "Find where to eat at late night!",
+    "subtitle": "With eatknight you can find places in your city where to eat at late knight"
   },
   "form": {
     "name": "Name",
@@ -24,7 +24,7 @@
     "closingtime": "Closing time"
   },
   "suggest": {
-    "title": "Cannot find your place",
+    "title": "Cannot find your place?",
     "subtitle": "Send us the information about a place you know!"
   },
   "menu": {

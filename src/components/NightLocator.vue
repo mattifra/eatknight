@@ -223,6 +223,10 @@ export default {
   padding: 8px 70px;
   box-shadow: $primary-shadow;
 
+  p {
+    font-size: 13px;
+  }
+
   h2, p {
     text-align: center;
   }

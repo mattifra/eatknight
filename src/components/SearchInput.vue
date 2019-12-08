@@ -2,8 +2,8 @@
   <div :class="{active: InputOpen, SearchInput : true}">
     <button @click="InputOpen=!InputOpen"> <SvgIcon :name="'lens'" :width="22"/></button>
       <gmap-autocomplete
-      @place_changed="setPlace">
-    </gmap-autocomplete>
+        @place_changed="setPlace">
+      </gmap-autocomplete>
   </div>   
 </template>
 <script>

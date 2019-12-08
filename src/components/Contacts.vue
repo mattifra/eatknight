@@ -2,8 +2,8 @@
    <div class="text-center">
       <h1><p>{{ $t('contactus') }}</p></h1>
       <form class="Form__Basic" @submit="sendReq">
-        <input class="Input" placeholder="Name" v-model="name" required />
-        <input class="Input" placeholder="Email" v-model="email"  required />
+        <input class="Input" :placeholder="$t('form.name')" v-model="name" required />
+        <input class="Input" :placeholder="$t('form.email')" v-model="email"  required />
         <textarea class="Input" placeholder="I love this shit because..."  v-model="text" required/>
         <button type="submit" class="Btn Btn--Primary">{{cta}}</button>
       </form>

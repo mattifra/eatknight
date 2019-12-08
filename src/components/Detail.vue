@@ -12,11 +12,11 @@
               <p>{{selectedMarker.vicinity}}</p>
               <div class="d-flex mb-2">
                 <a :href="`tel:${selectedMarker.formatted_phone_number}`" class="mr-2">{{selectedMarker.formatted_phone_number}}</a>
-                <span><strong>Closes at {{closeAt/100}}</strong></span>
+                <span><strong>{{$t('detail.closeat')}} {{closeAt/100}}</strong></span>
               </div>
             </div>
             <div class="Detail__Footer">
-                <a :href="directions" class="Btn Btn--Primary" >Directions</a>
+                <a :href="directions" class="Btn Btn--Primary" >{{$t('detail.directions')}}</a>
                 <div class="Stars" :style="ratingStyle" aria-label="Rating of this product is 2.3 out of 5."></div>
               </div>
     </div>

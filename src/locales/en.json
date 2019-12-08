@@ -1,4 +1,39 @@
 {
   "message": "hello i18n !!",
-  "contactus": "Contact us!"
+  "contactus": "Contact us!",
+  "global": {
+    "startSearching": "Start searching"
+  },
+  "map": {
+    "title": "Hungry?",
+    "subtitle": "Find your night place to eat"
+  },
+  "home": {
+    "title": "Find where to eat at late night",
+    "subtitle": "With eatknight you can find places in your city where to eat at late knight!"
+  },
+  "form": {
+    "name": "Name",
+    "email": "Email",
+    "phone": "Phone",
+    "address": "Address",
+    "send": "Invia",
+    "nameplace": "Name of the place",
+    "addressplace": "Address of the place",
+    "phoneplace": "Number of the place",
+    "closingtime": "Closing time"
+  },
+  "suggest": {
+    "title": "Cannot find your place",
+    "subtitle": "Send us the information about a place you know!"
+  },
+  "menu": {
+    "suggest": "Suggest a place",
+    "home": "Home",
+    "contact": "Contact"
+  },
+  "detail": {
+    "closeat": "Closes at",
+    "directions": "Directions"
+  }
 }

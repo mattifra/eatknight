@@ -1,4 +1,39 @@
 {
   "message": "Ciao i18n !!",
-  "contactus": "Contattaci"
+  "contactus": "Contattaci",
+  "global": {
+    "startSearching": "Inizia a cercare"
+  },
+  "map": {
+    "title": "Hai fame?",
+    "subtitle": "Trova un posto per mangiare"
+  },
+  "home": {
+    "title": "Trove dove mangiare di notte",
+    "subtitle": "Con Eatknight puoi trovare i posti della tua città dove mangiare la notte!"
+  },
+  "form": {
+    "name": "Nome",
+    "email": "Email",
+    "phone": "Telefono",
+    "address": "Indirizzo",
+    "send": "Invia",
+    "nameplace": "Nome del posto",
+    "addressplace": "Indirizzo del posto",
+    "phoneplace": "Numero del posto",
+    "closingtime": "Orario di chiusura"
+  },
+  "suggest": {
+    "title": "Non trovi il tuo posto preferito?",
+    "subtitle": "Mandaci le informazioni del posto che conosci!"
+  },
+  "menu": {
+    "suggest": "Suggerisci un posto",
+    "home": "Home",
+    "contact": "Contatti"
+  },
+  "detail": {
+    "closeat": "Chiude alle",
+    "directions": "Direzioni"
+  }
 }

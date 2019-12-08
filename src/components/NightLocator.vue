@@ -1,8 +1,8 @@
 <template>
   <div>
     <div class="Header">
-      <h2 class="m0">Hungry?</h2>
-      <p class="m0">Find your night place to eat</p>
+      <h2 class="m0">{{ $t('map.title') }}</h2>
+      <p class="m0">{{ $t('map.subtitle') }}</p>
       <SearchInput />
       <button @click="geolocate" class="Btn Btn--Round Geolocate">
         <SvgIcon :name="'locate'" />

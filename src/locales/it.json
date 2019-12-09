@@ -18,13 +18,13 @@
     "phone": "Telefono",
     "address": "Indirizzo",
     "send": "Invia",
-    "nameplace": "Nome del posto",
-    "addressplace": "Indirizzo del posto",
-    "phoneplace": "Numero del posto",
+    "nameplace": "Nome",
+    "addressplace": "Indirizzo",
+    "phoneplace": "Numero di telefono",
     "closingtime": "Orario di chiusura"
   },
   "suggest": {
-    "title": "Non trovi il tuo posto preferito?",
+    "title": "Ci vuoi suggerire un posto che non è sulla mappa?",
     "subtitle": "Mandaci le informazioni del posto che conosci!"
   },
   "menu": {

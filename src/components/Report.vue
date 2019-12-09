@@ -5,10 +5,10 @@
         <p class="mb-4">{{$t('suggest.subtitle')}}</p>
      </div>
       <form class="Form__Basic" @submit="send">
-        <input class="Input" :placeholder="$t('form.nameplace')" v-model="storeName" required/>
-        <input class="Input" :placeholder="$t('form.phoneplace')" v-model="storeNumber" />
         <gmap-autocomplete class="Input" :placeholder="$t('form.addressplace')"  @place_changed="setPlace" required />
+        <input class="Input" :placeholder="$t('form.nameplace')" v-model="storeName" required/>
         <input class="Input" :placeholder="$t('form.closingtime')" v-model="storeClose" required />
+        <input class="Input" :placeholder="$t('form.phoneplace')" v-model="storeNumber" />
         <button  type="submit" class="Btn Btn--Primary" >{{cta}}</button>
       </form>
     </div>

@@ -29,6 +29,12 @@
         :icon="MarkerIcon"
         :visible="isAval(m)"
         @click="openInfo(m)" ></gmap-marker>
+        <gmap-marker
+        :key="index"
+        v-for="(m, index) in PosMarker"
+        :position="m.geometry.location"
+        :icon="MarkerIcon"
+        :visible="true" ></gmap-marker>
     </gmap-map>
      <Detail />
   </div>
@@ -61,7 +67,8 @@ export default {
       Now: new Date(Now),
       MarkerIcon: MAP.MARKER_ICON,
       Opts: MAP.OPTS,
-      SuggMarkers: null
+      SuggMarkers: null,
+      PosMarker: []
     }
   },
 
@@ -127,6 +134,7 @@ export default {
       navigator.geolocation.getCurrentPosition(position => {
         const pos = {lat: position.coords.latitude, lng: position.coords.longitude};
         console.log(pos)
+        
         this.$refs.mapRef.$mapPromise.then((map) => {
           map.setCenter(pos)
         })
@@ -183,7 +191,7 @@ export default {
 
       const request = {
         placeId: el.place_id,
-        fields: ['name', 'rating', 'formatted_phone_number', 'vicinity', 'geometry', 'opening_hours', 'utc_offset_minutes']
+        fields: ['name', 'rating', 'formatted_phone_number', 'vicinity', 'geometry', 'opening_hours', 'utc_offset_minutes' , 'photos']
       };
 
       this.$refs.mapRef.$mapPromise.then((map) => {

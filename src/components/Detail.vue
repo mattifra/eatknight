@@ -3,6 +3,7 @@
     <div class="Detail"
             v-if="infoWinOpen">
             <div class="Detail__Header">
+              <!-- <img :src="pics" /> -->
               <h3 class="m0">{{selectedMarker.name}}</h3>
               <button class="Detail__Close" @click="closeInfoWin" aria-label="close">
                 <SvgIcon :name="'close'" :width="12"/>
@@ -12,7 +13,7 @@
               <p>{{selectedMarker.vicinity}}</p>
               <div class="d-flex mb-2">
                 <a :href="`tel:${selectedMarker.formatted_phone_number}`" class="mr-2">{{selectedMarker.formatted_phone_number}}</a>
-                <span><strong>{{$t('detail.closeat')}} {{closeAt/100}}</strong></span>
+                <span><strong>{{$t('detail.closeat')}} {{closeAt}}</strong></span>
               </div>
             </div>
             <div class="Detail__Footer">
@@ -40,13 +41,13 @@ export default {
       infoWinOpen: 'infoWinOpen',
       infoWinPos: 'infoWinPos'
     }),
+
     ratingStyle() {
       return `--rating: ${this.selectedMarker.rating};`
     },
+
     directions() {
-
       let lat, lng;
-
       if (this.selectedMarker.suggested) {
         lat = this.infoWinPos ? this.infoWinPos.lat : '';
         lng = this.infoWinPos ? this.infoWinPos.lng : '';
@@ -54,23 +55,31 @@ export default {
         lat = this.infoWinPos ? this.infoWinPos.lat() : ''; 
         lng = this.infoWinPos ? this.infoWinPos.lng() : '';
       }
-    
       return `https://www.google.com/maps/dir/?api=1&destination=${lat},${lng}`
     },
 
     closeAt() {
       function addZeroes( num ) {
-        var value = Number(num);
+        var value = Number(num)/100;
         var res = num.split(".");
         if(res.length == 1 || (res[1].length < 3)) {
             value = value.toFixed(2);
         }
-        return value
+        return value.replace(".", ":");
       } 
+
+      //funziona solo se orario continuato.. da correggere
       let closeHours = this.selectedMarker.opening_hours.periods.map(a => a.close.time);
-      let closeHoursInt = closeHours.map(Number);
+      let closeHoursFilt = closeHours.filter( b => b < 600 )
+      console.log(closeHoursFilt)
+      let closeHoursInt = closeHoursFilt.map(Number);
       return addZeroes(String(Math.max(...closeHoursInt)))
-    } 
+    } ,
+
+    pics() {
+      let pics = this.selectedMarker.photos.map(a => a.getUrl());
+      return pics[0]
+    }
 
   },
 

@@ -30,10 +30,8 @@
         :visible="isAval(m)"
         @click="openInfo(m)" ></gmap-marker>
         <gmap-marker
-        :key="index"
-        v-for="(m, index) in PosMarker"
-        :position="m.geometry.location"
-        :icon="MarkerIcon"
+        :position="PosMarker"
+        :icon="UserIcon"
         :visible="true" ></gmap-marker>
     </gmap-map>
      <Detail />
@@ -66,9 +64,10 @@ export default {
     return {
       Now: new Date(Now),
       MarkerIcon: MAP.MARKER_ICON,
+      UserIcon: MAP.USER_ICON,
       Opts: MAP.OPTS,
       SuggMarkers: null,
-      PosMarker: []
+      PosMarker: null
     }
   },
 
@@ -133,10 +132,12 @@ export default {
 
       navigator.geolocation.getCurrentPosition(position => {
         const pos = {lat: position.coords.latitude, lng: position.coords.longitude};
-        console.log(pos)
+        this.PosMarker = pos;
+
         
         this.$refs.mapRef.$mapPromise.then((map) => {
           map.setCenter(pos)
+          map.setZoom(16)
         })
         this.$store.dispatch('setCenter', pos).then(resp => {
           this.getNearbyPlacesFromCenter();

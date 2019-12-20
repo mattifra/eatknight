@@ -1,6 +1,8 @@
 // vue.config.js
 const path = require('path')
 const PrerenderSPAPlugin = require('prerender-spa-plugin')
+const RobotstxtPlugin = require("robotstxt-webpack-plugin");
+
 
 
 module.exports = {
@@ -14,7 +16,8 @@ module.exports = {
       new PrerenderSPAPlugin({
         staticDir: path.join(__dirname, 'dist'),
         routes: [ '/']
-      })
+      }),
+      new RobotstxtPlugin()
     ]
    },
   pluginOptions: {
